@@ -26,8 +26,6 @@ The function of the program is shown in the menu:
 This function would plot a curve graph with two lines showing that whether users have successfully adhered to their spending limits on an average of each day.
 The graph is shown below:
 
-![Figure_1](https://user-images.githubusercontent.com/27927635/233843546-ae7cc992-56cd-4041-a808-98d8d0333557.png)
-
 The codes are shown below:
 ```python
 def plot(monthspending: daily_spending_tracker.MonthSpending) -> None:

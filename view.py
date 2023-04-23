@@ -59,15 +59,15 @@ def print_list(monthspending: daily_spending_tracker.MonthSpending) -> None:
 def print_menu() -> None:
     """ Print the menu """
     print('Type any of the following commands.')
-    print('1. Exit - exit the program. It will save the list if one is loaded')
-    print('2. List - list the todo item in a list (if a list has been loaded)')
-    print('3. Add - add a todo item to the list, you can follow it with the item. For example "add buy coconuts"')
-    print('4. MODI - Modify a day spending item from the list')
+    print('1. Exit - exit the program. It will save the data if one is loaded')
+    print('2. List - list the spending of the month recorded (if one has been loaded)')
+    print('3. Add - add a day spending object')
+    print('4. MODI - Modify a day spending')
     print('5. SUMMARY - make a summary on the spending condition this month')
     print('6. Save - save the list to a file.')
-    print('7. Load - load a list from a file. You can also put the file name after the command. For example "load shopping_list.csv')
-    print('8. New - create a new list, can be combined with the name of the list. For example "new shopping_list"')
-    print('9. Plot - plot on graph on your spending this month')
+    print('7. Load - load a list from a file.')
+    print('8. New - create a new record')
+    print('9. Plot - plot the graph on your spending this month')
 
 
 def get_filename() -> str:
@@ -239,6 +239,10 @@ def summary(days_recorded :int, days_in_month: int, total_spending: float,
 
 
 def plot(monthspending: daily_spending_tracker.MonthSpending) -> None:
+    """This function would plot a curve graph with two lines showing that
+    whether users have successfully adhered to their spending limits on an
+    average of each day.
+    """
     # The first line which is the spending in this month
     x1 = []
     y1 = []
