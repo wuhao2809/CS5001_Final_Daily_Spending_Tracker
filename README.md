@@ -25,6 +25,7 @@ The function of the program is shown in the menu:
 ### Plot the graph through matplotlib
 This function would plot a curve graph with two lines showing that whether users have successfully adhered to their spending limits on an average of each day.
 The graph is shown below:
+![Figure_1](https://user-images.githubusercontent.com/27927635/233847934-7a8e3929-770e-4370-84e1-b16833d66de6.png)
 
 The codes are shown below:
 ```python
