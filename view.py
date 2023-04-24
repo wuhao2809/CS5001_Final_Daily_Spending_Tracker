@@ -1,8 +1,9 @@
-
 """
-
 This is the main view for the application. It is responsible for
 displaying the information to the client, and getting input from the client.
+
+NAME: Hao Wu
+SEMESTER: Spring, 2023
 """
 import daily_spending_tracker
 import sys
@@ -26,8 +27,7 @@ class ViewOptions(Enum):
     NEW = 8
     PLOT = 9
     UNKNOWN = 10
-
-
+    HELP = 11
 
 
 def print_welcome() -> None:
@@ -38,9 +38,11 @@ def print_welcome() -> None:
     print('Type "help" to get a list of commands.')
     print()
 
+
 def print_goodbye() -> None:
     """ Print the goodbye message """
     print('Goodbye. Thank you for using out product')
+
 
 def print_error(message: str) -> None:
     """ Print an error message
@@ -49,6 +51,7 @@ def print_error(message: str) -> None:
     """
     print(f'Error: {message}', file=sys.stderr)
 
+
 def print_list(monthspending: daily_spending_tracker.MonthSpending) -> None:
     """ Print out the month spending now
     Args:
@@ -56,13 +59,15 @@ def print_list(monthspending: daily_spending_tracker.MonthSpending) -> None:
     """
     print(monthspending)
 
+
 def print_menu() -> None:
     """ Print the menu """
     print('Type any of the following commands.')
     print('1. Exit - exit the program. It will save the data if one is loaded')
-    print('2. List - list the spending of the month recorded (if one has been loaded)')
+    print('2. List - list the spending of the\
+ month recorded (if one has been loaded)')
     print('3. Add - add a day spending object')
-    print('4. MODI - Modify a day spending')
+    print('4. MODI - modify a day spending')
     print('5. SUMMARY - make a summary on the spending condition this month')
     print('6. Save - save the list to a file.')
     print('7. Load - load a list from a file.')
@@ -82,6 +87,7 @@ def get_filename() -> str:
         print_error('Filename must end with .csv')
         return get_filename()
 
+
 def get_username() -> str:
     """Get the username from the user to be a part of the filename
 
@@ -95,24 +101,11 @@ def get_username() -> str:
         return name
 
 
-# def get_list_name() -> str:
-#     """ Get the list name from the user.
-
-#     The name may not contain any punctuation or spaces.
-#     Returns:
-#         str: list name
-#     """
-#     name = input('Enter a list name: ').strip()
-#     if any(char in name for char in punctuation) or ' ' in name:
-#         print_error('List name may not contain punctuation or spaces')
-#         return get_list_name()
-#     else:
-#         return name
 def get_basic_info() -> Tuple[int, str, float]:
     """Get the basic information from the user, it would return
     to this function again if it doesn't work
     return year, month and target"""
-    flag_year, flag_month, flag_target = 0, 0 ,0
+    flag_year, flag_month, flag_target = 0, 0, 0
     while flag_year == 0:
         year = input("Please enter the year of the month ")
         try:
@@ -126,7 +119,7 @@ def get_basic_info() -> Tuple[int, str, float]:
 
     while flag_month == 0:
         month = input("Please enter the month\n"
-                    f"Month should be {MonthList} ").capitalize()
+                      f"Month should be {MonthList} ").capitalize()
         if month in MonthList:
             flag_month = 1
         else:
@@ -151,12 +144,13 @@ def get_date() -> int:
     flag_date = 0
     while flag_date == 0:
         try:
-            date = int(input('Enter the date of the month from 1-31: ').strip())
+            date = int(input('Enter the date of the month').strip())
             if isinstance(date, int) and 31 >= date >= 1:
                 flag_date = 1
-            else: raise ValueError
+            else:
+                raise ValueError
         except ValueError:
-            raise ValueError("Incorrect date, it should be 1-31")
+            print("Incorrect date")
     return date
 
 
@@ -212,8 +206,10 @@ def get_add_info() -> Tuple[str, str]:
         tuple: (name, description)
     """
     name = input('Enter the name of the item: ').strip()
-    description = input('Enter the description of the item (hit return for blank): ').strip()
+    description = input('Enter the description \
+        of the item (hit return for blank): ').strip()
     return (name, description)
+
 
 def get_item_query() -> str:
     """ Get the item to query for
@@ -223,18 +219,21 @@ def get_item_query() -> str:
     return input('Enter the item name or index value: ').strip()
 
 
-def summary(days_recorded :int, days_in_month: int, total_spending: float,
+def summary(days_recorded: int, days_in_month: int, total_spending: float,
             target_set: float) -> None:
     """It would print out the message of the summary to the user"""
     gap = abs(total_spending - target_set)
     message = ""
-    message += f"There are {days_recorded}/{days_in_month} days recorded in this month\n"
+    message += f"There are \
+{days_recorded}/{days_in_month} days recorded in this month\n"
     message += f"The total spending of this month is ${total_spending}\n"
     message += f"The target of this month is ${target_set}"
     if target_set < total_spending:
-        message += f"You didn't reach the goal this month, with the gap of ${gap} from the target"
+        message += f"You didn't \
+reach the goal this month, with the gap of ${gap} from the target"
     else:
-        message += f"You are awesome! You reach the goal with ${gap} less than the target"
+        message += f"You are awesome! \
+You reach the goal with ${gap} less than the target"
     return message
 
 
@@ -248,17 +247,17 @@ def plot(monthspending: daily_spending_tracker.MonthSpending) -> None:
     y1 = []
     for i in range(monthspending.daysinmonth()):
         x1.append(i + 1)
-        if monthspending.items[i] == None:
+        if monthspending.items[i] is None:
             y1.append(0)
         else:
             y1.append(monthspending.items[i].sum_day())
     # plotting the points
-    plt.plot(x1, y1, label = "Actual day spending")
+    plt.plot(x1, y1, label="Actual day spending")
 
     # The second line which is the average spending in this month
     average_day_target = monthspending.target / monthspending.daysinmonth()
     y2 = [average_day_target] * monthspending.daysinmonth()
-    plt.plot(x1, y2, label = "Target distributed in each day")
+    plt.plot(x1, y2, label="Target distributed in each day")
 
     # naming the x axis
     plt.xlabel('Date')
@@ -268,6 +267,9 @@ def plot(monthspending: daily_spending_tracker.MonthSpending) -> None:
     # giving a title to my graph
     plt.title('Actual Spending vs. Target')
 
+    # show a legend on the plot
+    plt.legend()
+    
     # function to show the plot
     plt.show()
 
@@ -297,5 +299,7 @@ def get_command() -> Tuple[ViewOptions]:
         return (ViewOptions.NEW)
     elif command == 'plot' or command == '9':
         return (ViewOptions.PLOT)
+    elif command == 'help' or command == '11':
+        return (ViewOptions.HELP)
     else:
         return (ViewOptions.UNKNOWN)
