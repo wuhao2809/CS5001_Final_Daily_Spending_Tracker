@@ -1,5 +1,6 @@
 # CS5001_Final_Daily_Spending_Tracker
-`NOTE: PLease enter this program through app.py` 
+`NOTE: PLease enter this program through app.py`
+`A code review is shown in the mp4 video`
 
 This project is called Daily Spending Tracker, which is for the final of CS5001 in NEU. The concept behind this program is straightforward: users establish a target spending amount for the month and input their daily expenditures for each day of the month. The program then generates a plot and messages to indicate whether users have successfully adhered to their spending limits. 
 
